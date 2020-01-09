@@ -11,17 +11,18 @@ public class Main {
 
         try {
             ServerSocket serverSocket = new ServerSocket(4415);
-            System.out.println("Waiting for a client");
+            System.out.println("Waiting for client connection");
             Socket socket = serverSocket.accept();
-            System.out.println("Client Accepted");
+            System.out.println("Client Connected");
             DataInputStream in = new DataInputStream(socket.getInputStream());
 
             String str =(String)in.readUTF();
-            System.out.println(str);
+            BufferedWriter writer = new BufferedWriter(new FileWriter("src/self/drp/output.txt"));
+            writer.write(str);
 
 
 
-
+            writer.close();
             socket.close();
             in.close();
 
