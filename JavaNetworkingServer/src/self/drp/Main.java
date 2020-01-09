@@ -8,22 +8,29 @@ public class Main {
 
     public static void main(String[] args) {
 
+
         try {
             ServerSocket serverSocket = new ServerSocket(4415);
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("Server is running...");
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
-            BufferedReader stdIn = new BufferedReader( new InputStreamReader(System.in));
+            System.out.println("Waiting for a client");
+            Socket socket = serverSocket.accept();
+            System.out.println("Client Accepted");
+            DataInputStream in = new DataInputStream(socket.getInputStream());
 
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                out.println(inputLine);
-            }
+            String str =(String)in.readUTF();
+            System.out.println(str);
+
+
+
+
+            socket.close();
+            in.close();
+
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
+
 
 
 
